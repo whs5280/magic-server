@@ -1,0 +1,4 @@
+# 配置主数据源
+spring:
+  config:
+    import: magic-server.yml
