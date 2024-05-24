@@ -1,11 +1,16 @@
 package com.magic.module.order.controller;
 
+import com.magic.common.component.MQDelayMessageSender;
 import com.magic.common.response.ResponseResult;
+import com.magic.common.util.JsonUtil;
 import com.magic.module.order.entity.vo.DispatchOrderVo;
 import com.magic.module.order.service.DispatchOrderService;
+import org.springframework.amqp.core.CustomExchange;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,10 +18,14 @@ import java.util.Objects;
 @RestController
 public class DispatchOrderController {
     private final DispatchOrderService orderService;
+    private final MQDelayMessageSender mqSender;
+    private final CustomExchange delayedExchange;
 
-    public DispatchOrderController(DispatchOrderService orderService)
+    public DispatchOrderController(DispatchOrderService orderService, MQDelayMessageSender mqSender, @Qualifier("delayedExchange") CustomExchange delayedExchange)
     {
         this.orderService = orderService;
+        this.mqSender = mqSender;
+        this.delayedExchange = delayedExchange;
     }
 
     @GetMapping("/index")
@@ -50,6 +59,24 @@ public class DispatchOrderController {
             return ResponseEntity.ok(ResponseResult.success(orderVo));
         } else {
             return ResponseEntity.ok(ResponseResult.fail("rush order fail"));
+        }
+    }
+
+    @GetMapping("/delayQueue")
+    public ResponseEntity<?> delayQueue(Integer orderId)
+    {
+        DispatchOrderVo orderVo = orderService.orderDetail(orderId);
+        if (Objects.isNull(orderVo)) {
+            return ResponseEntity.ok(ResponseResult.fail("order was not find"));
+        } else {
+            // 延迟队列
+            HashMap<String, String> orderMessage = new HashMap<>();
+            orderMessage.put("order_id", String.valueOf(orderId));
+            orderMessage.put("event", "close");
+
+            System.out.println(delayedExchange.getName());
+            mqSender.sendDelayedMessage(delayedExchange.getName(), "message", JsonUtil.toJson(orderMessage), 30);
+            return ResponseEntity.ok(ResponseResult.success(orderMessage));
         }
     }
 }
