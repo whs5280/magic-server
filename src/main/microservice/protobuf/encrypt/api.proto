@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+//go package path and package name
+option java_package = "microservice.protoc.encrypt.grpc";
+option java_outer_classname = "EncryptServiceClient";
+
+//加密服务调用接口
+service EncryptService {
+    //解码 获取明文
+    rpc Decrypt(Request) returns (Response){}
+    //编码 加密之后数据
+    rpc Encrypt(Request) returns (Response){}
+    //获取指定内容的HASH值，长度约定32 带盐值
+    rpc GetHash(Request) returns (Response){}
+}
+
+message Request {
+    string content = 1;
+}
+message Response {
+    string secretContent = 1;
+}
