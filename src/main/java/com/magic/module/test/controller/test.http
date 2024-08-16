@@ -1,3 +1,7 @@
 //GET http://localhost:9977/api/test/services
 
-GET http://localhost:9977/api/test/index?data=wanghangsheng
+//GET http://localhost:9977/api/test/index?data=wanghangsheng
+
+//GET http://localhost:9977/api/test/esDemo
+
+GET http://localhost:9977/api/test/esSearch
