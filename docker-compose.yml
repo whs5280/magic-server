@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  lan_access:
+    driver: host
+
+services:
+  # http://localhost:8083/xxl-job-admin
+  xxl-job-admin:
+    image: xuxueli/xxl-job-admin:2.2.0
+    container_name: local-xxl-job-admin
+    ports:
+      - "8083:8080"
+    environment:
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai"
+      - "SPRING_DATASOURCE_USERNAME=root"
+      - "SPRING_DATASOURCE_PASSWORD=root"
