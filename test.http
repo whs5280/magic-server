@@ -1,0 +1,15 @@
+
+###
+GET http://localhost:9977/api/test/addZan
+
+###
+GET http://localhost:9977/api/test/delZan
+
+###
+GET http://localhost:9977/api/test/isZan
+
+###
+GET http://localhost:9977/api/test/zanCount
+
+###
+GET http://localhost:9977/api/test/userZan

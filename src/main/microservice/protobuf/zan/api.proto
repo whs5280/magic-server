@@ -1,0 +1,42 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+//go package path and package name
+option java_package = "microservice.protoc.zan.grpc";
+option java_outer_classname = "ZanServiceClient";
+
+import "request.proto";
+import "response.proto";
+
+/**
+ * @exclude
+ * This comment won't be rendered
+ */
+service ZanService {
+    // 点赞
+    rpc AddZan(AddZanReq) returns(AddZanRep);
+
+    // 取消点赞
+    rpc DelZan(DelZanReq) returns(DelZanRep);
+
+    // 获取点赞状态
+    rpc IsZan(IsZanReq) returns(IsZanRep);
+
+    // 批量获取点赞状态
+    rpc IsZans(IsZansReq) returns(IsZansRep);
+
+    // 获取点赞总数
+    rpc ZanCnt(ZanCntReq) returns(ZanCntRep);
+
+    // 批量获取点赞总数
+    rpc MultiZanCnt(MultiZanCntReq) returns(MultiZanCntRep);
+
+    // 用户点赞数据
+    rpc UserZan(UserZanReq) returns(UserZanRep);
+
+    // 用户点赞数据，支持多个appId查询
+    rpc UserZanByAppIds(UserZanByAppIdsReq) returns(UserZanRep);
+}
+
