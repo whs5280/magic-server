@@ -4,6 +4,7 @@ import com.ecwid.consul.v1.health.model.HealthService;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class Client {
+    @Value("${spring.cloud.consul.}")
+    private String serverIp;
+
     public Object getGrpcBlockingStub(Class<?> classType, HealthService service) throws Exception {
         if (service.getChecks().isEmpty()) {
             throw new Exception("No service node check found");
@@ -29,7 +33,8 @@ public class Client {
 
         // 创建grpc通道
         ManagedChannel channel = ManagedChannelBuilder.forAddress(
-                service.getService().getAddress(),
+                serverIp != null ? serverIp : service.getService().getAddress(),
+                //service.getService().getAddress(),    // .getAddress()获取到的是内网IP，公网IP则需要通过consul配置
                 service.getService().getPort()
         ).usePlaintext().build();
 

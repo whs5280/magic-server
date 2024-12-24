@@ -39,7 +39,7 @@ public class ZanServiceImpl implements ZanService {
      */
     private static final String SERVICE_NAME = "go-micro-srv-zan";
 
-    public ZanServiceImpl(ConsulService consulService, Client client, @Value("test") String env) throws Exception {
+    public ZanServiceImpl(ConsulService consulService, Client client, @Value("${ENV_MAGIC:test}") String env) throws Exception {
         this.client = client;
         this.healthServiceList = consulService.getServiceAddressList(String.format("%s.%s", env, SERVICE_NAME));
         if (healthServiceList.isEmpty()) {
