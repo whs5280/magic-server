@@ -7,6 +7,9 @@ import com.magic.module.order.entity.vo.DispatchOrderVo;
 import java.util.List;
 
 public interface DispatchOrderService extends IService<DispatchOrder> {
+    // 新增订单
+    Boolean addOrder(DispatchOrder order);
+
     // 订单列表
     List<DispatchOrderVo> orderList(Integer userId);
 

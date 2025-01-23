@@ -1,0 +1,82 @@
+gold:
+  goldkey: 87C631A7A0BE7DC1
+  iv: b0f82e9c1a3b6d4f
+  env: test
+
+oss:
+  accessKey:
+  secretKey:
+  bucket:
+
+redisson:
+  lockWatchdogTimeout: 60000
+  pool:
+    poolSize: 20
+    minIdle: 5
+
+xxl:
+  job:
+    admin:
+      addresses: http://localhost:8083/xxl-job-admin
+    executor:
+      # 自行注册的一个执行器，定义的端口是9999，ip通过 `http://localhost:8083/xxl-job-admin/jobgroup` 获取
+      appname: xxl-job-executor-sample
+      # ip默认为空，表示自动获取IP
+      ip: 192.168.31.51
+      port: 9999
+      # 日志的文件路径
+      logpath: /data/applogs/xxl-job/jobhandler
+      # 日志保留的天数
+      logretentiondays: 30
+    accessToken:
+
+server:
+  # 项目的端口号
+  port: 9977
+  # 配置静态资源启用 gzip 压缩
+  compression:
+    enabled: true
+    min-response-size: 128
+
+# 配置主数据源
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  cloud:
+    consul:
+      host: 192.168.31.51
+      port: 8500
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    # 配置参考：https://shardingsphere.apache.org/document/5.3.0/cn/user-manual/shardingsphere-jdbc/yaml-config/rules/sharding/#%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B
+    driverClassName: org.apache.shardingsphere.driver.ShardingSphereDriver
+    #url: jdbc:shardingsphere:classpath:sharding-database.yml
+    url: jdbc:shardingsphere:classpath:sharding-table.yml
+  data:
+    redis:
+      host: 192.168.31.51
+      port: 6379
+      password:
+      database: 1
+      timeout: 5000
+    mongodb:
+      host: 192.168.31.51
+      port: 27017
+      database: test
+      username: rw_test
+      password: 123456
+  rabbitmq:
+    host: 192.168.31.51
+    port: 5672
+    virtual-host: test
+    username: test
+    password: test
+  elasticsearch:
+    uris: http://192.168.31.51:9200
+    username:
+    password:
+
+

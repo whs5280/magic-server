@@ -3,6 +3,7 @@ package com.magic.module.order.controller;
 import com.magic.common.component.MQDelayMessageSender;
 import com.magic.common.response.ResponseResult;
 import com.magic.common.util.JsonUtil;
+import com.magic.module.order.entity.DispatchOrder;
 import com.magic.module.order.entity.vo.DispatchOrderVo;
 import com.magic.module.order.service.DispatchOrderService;
 import org.springframework.amqp.core.CustomExchange;
@@ -26,6 +27,23 @@ public class DispatchOrderController {
         this.orderService = orderService;
         this.mqSender = mqSender;
         this.delayedExchange = delayedExchange;
+    }
+
+    @GetMapping("/add")
+    public ResponseEntity<?> addOrder(@RequestParam Integer userId)
+    {
+        if (userId.equals(0)) {
+            return ResponseEntity.ok(ResponseResult.fail("param userId error"));
+        }
+
+        DispatchOrder order = new DispatchOrder();
+        order.setUserId(userId);
+
+        if (orderService.addOrder(order)) {
+            return ResponseEntity.ok(ResponseResult.success(order));
+        } else {
+            return ResponseEntity.ok(ResponseResult.fail("add order fail"));
+        }
     }
 
     @GetMapping("/index")

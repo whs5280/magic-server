@@ -18,6 +18,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor(jedisUtil))
                 .addPathPatterns("/api/order/**")
-                .excludePathPatterns("/api/order/delayQueue", "/api/order/queue");
+                .excludePathPatterns("/api/order/delayQueue", "/api/order/queue", "/api/order/add");
     }
 }

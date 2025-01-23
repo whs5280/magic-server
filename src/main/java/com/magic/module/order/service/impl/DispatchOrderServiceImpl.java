@@ -16,6 +16,11 @@ import java.util.List;
 @Service
 public class DispatchOrderServiceImpl extends ServiceImpl<DispatchOrderMapper, DispatchOrder> implements DispatchOrderService {
     @Override
+    public Boolean addOrder(DispatchOrder order) {
+        return super.save(order);
+    }
+
+    @Override
     public List<DispatchOrderVo> orderList(Integer userId) {
         QueryWrapper<DispatchOrder> queryWrapper = new QueryWrapper<DispatchOrder>()
                 .eq("user_id", userId).eq("is_active_customer", 0)

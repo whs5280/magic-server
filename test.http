@@ -13,3 +13,6 @@ GET http://localhost:9977/api/test/zanCount
 
 ###
 GET http://localhost:9977/api/test/userZan
+
+###
+GET http://localhost:9977/api/order/add?userId=3008
