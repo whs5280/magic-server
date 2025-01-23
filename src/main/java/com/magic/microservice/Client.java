@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class Client {
-    @Value("${spring.cloud.consul.}")
+    @Value("${spring.cloud.consul.host}")
     private String serverIp;
 
     public Object getGrpcBlockingStub(Class<?> classType, HealthService service) throws Exception {
