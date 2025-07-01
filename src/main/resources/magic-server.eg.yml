@@ -38,6 +38,11 @@ server:
     enabled: true
     min-response-size: 128
 
+# aliyun
+aliyun:
+  ai:
+    key:
+
 # 配置主数据源
 spring:
   mvc:
