@@ -27,5 +27,8 @@ rules:
         props: #分片算法属性配置
           algorithm-expression: b_dispatch_order_${user_id % 10}
           allow-range-query-with-inline-sharding: true  #表示允许使用范围查询（例如按月份范围查询）与内联分片一起使用
+    keyGenerators: #主键生成器配置
+      snowflake:
+        type: SNOWFLAKE # 雪花算法
 props:
   sql-show: true

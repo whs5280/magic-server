@@ -11,7 +11,9 @@ import java.util.Date;
 @Data
 @TableName(value = "b_dispatch_order")
 public class DispatchOrder implements Serializable {
-    @TableId(value = "order_id", type = IdType.AUTO)
+    // ASSIGN_ID 不适合分布式；生成的id为`Long类型`；可排序，生成的逻辑跟服务器时间有关
+    // ASSIGN_UUID 可用于分布式；生成的uuid为`32位字符串`；无法排序，但查询性能较低
+    @TableId(value = "order_id", type = IdType.ASSIGN_ID)
 
     private Integer orderId;
 
