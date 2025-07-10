@@ -1,0 +1,46 @@
+// 定义项目 API 的 proto 文件 可以同时描述 gRPC API
+// protobuf 文件参考:
+//  - https://developers.google.com/protocol-buffers/
+syntax = "proto3";
+
+//go package path and package name
+option java_package = "microservice.protoc.user.grpc";
+option java_outer_classname = "UserServiceClient";
+
+message User{
+  int32 id = 1;
+  string code = 2;
+  string name = 3;
+
+  // 对象
+  Nickname nickname = 4;
+
+  // list 引用类型
+  repeated string strList = 5;
+
+  // 简单Map String
+  map<string, string> map = 6;
+
+
+  // 复杂Map String
+  map<string, MapValueObject> mapObject = 7;
+}
+
+// 定义一个新的 Name对象
+message Nickname{
+  string nickname = 1;
+}
+
+// 定义 Map 的 Value 对象
+message MapValueObject{
+  string name = 1;
+  int32 age = 2;
+}
+
+message UserReq{
+  int32 id = 1;
+}
+
+service UserService {
+  rpc GetUser(UserReq) returns(User);
+}
