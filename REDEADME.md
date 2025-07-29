@@ -8,3 +8,9 @@
 
 ![image/xxl/img.png](/images/xxl/img.png)
 ![image/xxl/img_1.png](/images/xxl/img_1.png)
+
+### SpringBoot整合RabbitMQ实现消息延迟队列
+- RabbitMQConfig [配置](src/main/java/com/magic/config/RabbitMQConfig.java)
+- 延迟消息发送者 [Sender](src/main/java/com/magic/common/component/MQDelayMessageSender.java)
+- 延迟消息消费者 [Consumer](src/main/java/com/magic/common/amqp/MQDelayMessageListener.java)
+- 具体教程：https://zhuanlan.zhihu.com/p/641458427
