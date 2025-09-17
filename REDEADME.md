@@ -14,3 +14,6 @@
 - 延迟消息发送者 [Sender](src/main/java/com/magic/common/component/MQDelayMessageSender.java)
 - 延迟消息消费者 [Consumer](src/main/java/com/magic/common/amqp/MQDelayMessageListener.java)
 - 具体教程：https://zhuanlan.zhihu.com/p/641458427
+
+### 微服务Grpc调用
+- [Here](src/main/microservice/README.MD)
